@@ -93,23 +93,30 @@ class Jardin:
     def BuscarPlantaPorNombreComun(self, nombrecomun):
         listaencontrados = []
         for planta in self.__ListaPlantas:
-            if (planta.GetNombreComun == nombrecomun):
+            if (planta.GetNombreComun() == nombrecomun):
                 listaencontrados = listaencontrados + [planta]
         return listaencontrados
     def BuscarPlantaPorNombreCientifico(self, nombrecientifico):
         listaencontrados = []
         for planta in self.__ListaPlantas:
-            if (planta.GetNombreCientifico == nombrecientifico):
+            if (planta.GetNombreCientifico() == nombrecientifico):
                 listaencontrados = listaencontrados + [planta]
         return listaencontrados
     def BorrarPlantaPorNombreComun(self, nombrecomun):
         listafinal = []
         for planta in self.__ListaPlantas:
-            if (planta.GetNombreComun != nombrecomun):
+            if (planta.GetNombreComun() != nombrecomun):
                 listafinal = listafinal + [planta]
-                print('INFO: ',len(self.__ListaPlantas) - len(listafinal),'han sido eliminadas de el jardin.')
+                print('INFO:',len(self.__ListaPlantas) - len(listafinal),'plantas han sido retiradas del jardin.')
         self.__ListaPlantas = listafinal
-
+    def BorrarPlantaPorNombreCientifico(self, nombrecientifico):
+        listafinal = []
+        for planta in self.__ListaPlantas:
+            if (planta.GetNombreCientifico() != nombrecientifico):
+                listafinal = listafinal +[planta]
+                print('INFO:',len(self.__ListaPlantas) - len(listafinal),'plantas han sido retiradas del jardin')
+        self.__ListaPlantas = listafinal
+        
 #------>Funciones Generales
 
 def ObtenerOpcion(texto):
@@ -173,3 +180,18 @@ def PorcesoAgregarPlanta(jardin):
     plantanueva.SetClima('Indica el clima adecuado para la planta:\n')
     plantanueva.SetUsos('Indica los usos de la planta:\n')
     jardin.AgregarPlantaNueva(plantanueva)
+
+def BorrarPlanta(jardin):
+    print('''Buscar planta a borrar por:
+    1) N O M B R E  C O M U N
+    2) N O M B R E  C I E N T I F I C O
+    3) V O L V E R''')
+
+        finbuscar = False
+        while not finbuscar:
+            opcbuscar = ObtenerOpcion('\nElige una opcion para borrar:\n')
+            if opcbuscar == 1:
+                jardin.BorrarPlantaPorNombreComun('\nIntroduce el nombre comun de la planta a borrar:\n')
+                finbuscar = True
+            elif opcbuscar == 2:
+                jardin.BorrarPlantaPorNombreCientifico()
