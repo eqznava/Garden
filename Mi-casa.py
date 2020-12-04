@@ -35,8 +35,8 @@ class Planta:
         print('\n♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ P L A N T A ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣\n')
         print('Nombre comun:',self.GetNombreComun())
         print('Nombre cientifico:',self.GetNombreCientifico())
-        print('Tipo de Planta',self.GetTipoPlanta())
-        print('Riego',self.GetRiego())
+        print('Tipo de Planta:',self.GetTipoPlanta())
+        print('Riego:',self.GetRiego())
         print('Clima:',self.GetClima())
         print('Usos:',self.GetUsos())
         print('\n♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣ ♣\n')
@@ -55,7 +55,7 @@ class Jardin:
             archivo.close()
             if (len(plantas)>0):
                 for planta in plantas:
-                    datos = planta.split('■')
+                    datos = planta.split('|')
                     if(len(datos)==6):
                         plantanueva = Planta()
                         plantanueva = SetNombreComun([0])
@@ -66,7 +66,7 @@ class Jardin:
                         plantanueva = SetUsos([5])
                         self.__ListaPlantas = self.__ListaPlantas + [plantanueva]
                 print('INFO:Se han cargado un total de',len(self.__ListaPlantas),'plantas.')
-    def AgregarPlantaNueva(self, plantanueva):
+    def ProcesoAgrega(self, plantanueva):
         self.__ListaPlantas = self.__ListaPlantas + [plantanueva]
     def GuardarPlantas(self):
         try:
@@ -75,18 +75,18 @@ class Jardin:
             print('ERROR: » El Archivo que buscas no existe. «')
         else:
             for planta in self.__ListaPlantas:
-                texto = planta.GetNombreComun() + '■'
-                texto = texto + planta.GetNombreCientifico() + '■'
-                texto = texto + planta.GetTipoPlanta() + '■'
-                texto = texto + planta.GetRiego() + '■'
-                texto = texto + planta.GetClima() + '■'
-                texto = texto + planta.GetUsos() + '■'
+                texto = planta.GetNombreComun() + '|\n'
+                texto = texto + planta.GetNombreCientifico() + '|\n'
+                texto = texto + planta.GetTipoPlanta() + '|\n'
+                texto = texto + planta.GetRiego() + '|\n'
+                texto = texto + planta.GetClima() + '|\n'
+                texto = texto + planta.GetUsos() + '|\n'
                 archivo.write(texto)
             archivo.close()
             print('INFO: Planta almacenada exitosamente ♣')
     def MostrarJardin(self):
         print('\n♣ • ♠ • ♠ • ♠ • ♠ • ♠ • ♣ • ♣ J A R D I N ♣ • ♠ • ♠ • ♠ • ♠ • ♠ • ♣ • ♣\n')
-        print('Numero de Plantas en el jardin:',len(self.__ListaPlantas,'plantas'))
+        print('Numero de Plantas en el jardin:',len(self.__ListaPlantas),'plantas')
         for planta in self.__ListaPlantas:
             planta.MostrarPlanta()
         print('\n♣ • ♠ • ♠ • ♠ • ♠ • ♠ • ♣ • ♣ • ♠ • ♠ • ♠ • ♠ • ♠ • ♣ • ♠ • ♠ • ♣ • ♣ • ♣\n')
@@ -116,7 +116,7 @@ class Jardin:
                 listafinal = listafinal +[planta]
                 print('INFO:',len(self.__ListaPlantas) - len(listafinal),'plantas han sido retiradas del jardin')
         self.__ListaPlantas = listafinal
-        
+
 #------>Funciones Generales
 
 def ObtenerOpcion(texto):
@@ -171,15 +171,15 @@ def BuscarPlanta(jardin):
         elif opcbuscar == 3:
             finbuscar = True
 
-def PorcesoAgregarPlanta(jardin):
+def ProcesoAgregarPlanta(jardin):
     plantanueva = Planta()
-    plantanueva.SetNombreComun('Introduce el nombre comun de la planta:\n')
-    plantanueva.SetNombreCientifico('Introduce el nombre cientifico de la planta:\n')
-    plantanueva.SetTipoPlanta('Introduce el tipo de planta:\n')
-    plantanueva.SetRiego('Indica la frecuencia de riego de la planta:\n')
-    plantanueva.SetClima('Indica el clima adecuado para la planta:\n')
-    plantanueva.SetUsos('Indica los usos de la planta:\n')
-    jardin.AgregarPlantaNueva(plantanueva)
+    plantanueva.SetNombreComun(input(('>Introduce el nombre comun de la planta:\n')))
+    plantanueva.SetNombreCientifico(input(('>Introduce el nombre cientifico de la planta:\n')))
+    plantanueva.SetTipoPlanta(input(('>Introduce el tipo de planta:\n')))
+    plantanueva.SetRiego(input(('>Indica la frecuencia de riego de la planta:\n')))
+    plantanueva.SetClima(input(('>Indica el clima adecuado para la planta:\n')))
+    plantanueva.SetUsos(input(('>Indica los usos de la planta:\n')))
+    jardin.ProcesoAgrega(plantanueva)
 
 def BorrarPlanta(jardin):
     print('''Buscar planta a borrar por:
@@ -187,11 +187,36 @@ def BorrarPlanta(jardin):
     2) N O M B R E  C I E N T I F I C O
     3) V O L V E R''')
 
-        finbuscar = False
-        while not finbuscar:
-            opcbuscar = ObtenerOpcion('\nElige una opcion para borrar:\n')
-            if opcbuscar == 1:
-                jardin.BorrarPlantaPorNombreComun('\nIntroduce el nombre comun de la planta a borrar:\n')
-                finbuscar = True
-            elif opcbuscar == 2:
-                jardin.BorrarPlantaPorNombreCientifico()
+    finbuscar = False
+    while not finbuscar:
+        opcbuscar = ObtenerOpcion('\nElige una opcion para borrar:\n')
+        if opcbuscar == 1:
+            jardin.BorrarPlantaPorNombreComun('\nIntroduce el nombre comun de la planta a borrar:\n')
+            finbuscar = True
+        elif opcbuscar == 2:
+            jardin.BorrarPlantaPorNombreCientifico('\nIntroduce el nombre cientifico de la planta a borrar\n')
+            finbuscar = True
+        elif opcbuscar == 3:
+            finbuscar = True
+
+def Main():
+    jardin = Jardin('jardin.txt')
+    jardin.CargarPlantas()
+    fin = False
+    while not fin:
+        MostrarMenu()
+        opc = ObtenerOpcion('\nEscribe el numero de la opcion que deseas:\n')
+        if (opc == 1):
+            jardin.MostrarJardin()
+        elif (opc == 2):
+            BuscarPlanta(jardin)
+        elif (opc == 3):
+            ProcesoAgregarPlanta(jardin)
+        elif (opc == 4):
+            BorrarPlanta(jardin)
+        elif (opc == 5):
+            jardin.GuardarPlantas()
+        elif (opc == 6):
+            fin = True
+
+Main()
