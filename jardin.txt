@@ -1,6 +1,2 @@
-Habanero|
-Capsisium chinense|
-Chile comestible|
-Tres veces por semana|
-Calido humedo|
-Se utiliza en la cocina para dar picor a los alimentos.|
+Pikin|Capsisium pekin|Chile comestible|Tres veces por semana.|Tropical|Se utiliza en la gastronomia para dar picora los alimentos.
+Acuyo|Piper auritum|Comestible|Dos veces por semana|Tropical|Se utiliza en la gastronomia como condimento.
