@@ -157,6 +157,13 @@ class Jardin:
                     print('     INFO: ',valorfinal,'plantas han sido retiradas del jardin.')
                     print('╚════════════════════════════════════════════════════════════════════════════╝\n')
         self.__ListaPlantas = listafinal
+    def ModoficarAtributo(self,nombrecomun):#,nombrecientifico,tipoplanta,riego,clima,usos):
+        #listamodificada = []
+        for planta in self.__ListaPlantas:
+            if (planta.GetNombreComun() == nombrecomun):
+                print('Se encontro el nombre comun de la planata')
+            else:
+                print('No se encontro el nombre comun de la planta.')
 
 #------>Funciones Generales
 
@@ -179,8 +186,9 @@ def MostrarMenu():
     2) B U S C A R   P L A N T A S
     3) A G R E G A R  P L A N T A
     4) B O R R A R  P L A N T A
-    5) G U A R D A R  P L A N T A
-    6) S A L I R''')
+    5) A C T U A L I Z A R  D A T O S
+    6) G U A R D A R  P L A N T A
+    7) S A L I R''')
 
 def BuscarPlanta(jardin):
     print('''\tM E N U
@@ -254,6 +262,22 @@ def BorrarPlanta(jardin):
         elif opcbuscar == 3:
             finbuscar = True
 
+def ActualizarDatos(planta):
+    print('''\tATRIBUTOS A MODIFICAR:
+    1)N O M B R E  C O M U N
+    2)N O M B R E  C I E N T I F I C O
+    3)T I P O  D E  P L A N T A
+    4)R I E G O
+    5)C L I M A
+    6)U S O S
+    7)S A L I R''')
+
+    finactualizar = False
+    while not finactualizar:
+        opcbuscar = ObtenerOpcion('Elige un atributo a modificar:\n')
+        if opcbuscar == 1:
+            planta.ModoficarAtributo()
+
 def Main():
     jardin = Jardin('jardin.txt')
     jardin.CargarPlantas()
@@ -270,8 +294,10 @@ def Main():
         elif (opc == 4):
             BorrarPlanta(jardin)
         elif (opc == 5):
-            jardin.GuardarPlantas()
+            ActualizarDatos(jardin)
         elif (opc == 6):
+            jardin.GuardarPlantas()
+        elif (opc == 7):
             fin = True
 
 Main()
